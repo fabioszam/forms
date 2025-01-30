@@ -1,0 +1,144 @@
+/* Reset completo */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    /* Cores */
+    --color-primary: #007BFF;
+    --color-primary-hover: #0056b3;
+    --color-text: #333;
+    --color-text-light: #666;
+    --color-background: #fff;
+    --color-input-background: #f8f9fa;
+    --color-border: #dee2e6;
+    --color-form-background: #ffffff;
+    
+    /* Espaçamentos */
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    
+    /* Bordas */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    
+    /* Tipografia */
+    --font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+                  'Helvetica Neue', Arial, sans-serif;
+    --line-height: 1.6;
+}
+
+/* Layout principal */
+body {
+    font-family: var(--font-family);
+    line-height: var(--line-height);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    min-height: 100vh;
+    display: flex;
+}
+
+.content-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    padding: var(--space-lg);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.form-container {
+    width: min(100%, 600px);
+    margin: 0 auto;
+    padding: var(--space-lg);
+    background: var(--color-form-background);
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Componentes */
+h2 {
+    text-align: center;
+    font-size: clamp(1.75rem, 5vw, 2rem);
+    margin-bottom: var(--space-lg);
+    line-height: 1.2;
+    color: var(--color-text);
+}
+
+.input-group {
+    margin-bottom: var(--space-lg);
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-light);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 16px;
+    background-color: var(--color-input-background);
+    -webkit-appearance: none;
+    appearance: none;
+    transition: all 0.2s ease;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(0, 123, 255, 0.25);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover,
+.submit-btn:active {
+    background-color: var(--color-primary-hover);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: var(--space-md);
+    }
+    
+    .form-container {
+        padding: var(--space-md);
+        box-shadow: none;
+    }
+}
+
+.hp {
+    display: none !important;
+}
