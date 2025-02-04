@@ -1,43 +1,48 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector('form[name="contato"]');
-    const submitBtn = document.querySelector('.submit-btn');
+document.addEventListener('DOMContentLoaded', () => {
+    // Controle do campo "Outros"
+    const interestSelect = document.getElementById('interest');
+    const outrosContainer = document.getElementById('outros-container');
+    
+    interestSelect.addEventListener('change', () => {
+        outrosContainer.style.display = interestSelect.value === 'outros' ? 'block' : 'none';
+    });
 
-    // Validação aprimorada
-    form.addEventListener('submit', function(e) {
-        let isValid = true;
+    // Máscara automática do WhatsApp
+    const phoneInput = document.getElementById('whatsapp');
+    
+    phoneInput.addEventListener('input', function(e) {
+        let numbers = e.target.value.replace(/\D/g, '');
+        let formatted = '';
         
-        Array.from(form.elements).forEach(element => {
-            if (element.required && !element.value.trim()) {
-                element.focus();
-                isValid = false;
-            }
-        });
-
-        if (!isValid) {
-            e.preventDefault();
-            alert('Por favor, preencha todos os campos obrigatórios.');
+        numbers = numbers.substring(0, 11);
+        
+        if (numbers.length > 2) {
+            formatted += `(${numbers.substring(0,2)}) `;
+            numbers = numbers.substring(2);
+        }
+        
+        if (numbers.length > 5) {
+            formatted += `${numbers.substring(0,5)}-${numbers.substring(5)}`;
         } else {
-            submitBtn.innerHTML = 'Enviando...';
-            submitBtn.disabled = true;
+            formatted += numbers;
+        }
+        
+        e.target.value = formatted;
+    });
+
+    // Prevenção de caracteres não numéricos
+    phoneInput.addEventListener('keydown', (e) => {
+        const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+        if (isNaN(parseInt(e.key)) && !allowedKeys.includes(e.key)) {
+            e.preventDefault();
         }
     });
 
-    // Correção para selects no iOS
-    document.querySelectorAll('select').forEach(select => {
-        select.addEventListener('focus', () => {
-            select.style.backgroundColor = '#fff';
-            select.style.transform = 'translateZ(0)'; // Fix para renderização
-        });
-        
-        select.addEventListener('blur', () => {
-            select.style.backgroundColor = '';
-        });
-    });
-
-    // Previne zoom em inputs no iOS
-    document.querySelectorAll('input, textarea, select').forEach(el => {
-        el.addEventListener('touchstart', function() {
-            this.style.fontSize = '16px';
-        });
+    // Loading no envio do formulário
+    const form = document.querySelector('form');
+    const submitBtn = document.querySelector('.submit-btn');
+    
+    form.addEventListener('submit', () => {
+        submitBtn.classList.add('loading');
     });
 });
