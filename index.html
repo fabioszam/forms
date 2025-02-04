@@ -11,10 +11,10 @@
         <div class="form-container">
             <form name="contato" method="POST" data-netlify="true" data-netlify-honeypot="_honey">
                 <input type="hidden" name="form-name" value="contato">
-                <h2>Formulário de Contato</h2>
+                <h2 class="form-title">Formulário de Contato</h2>
 
                 <!-- Campo anti-spam -->
-                <input type="text" name="_honey" class="hp" style="display:none">
+                <input type="text" name="_honey" class="hp">
                 
                 <!-- Configuração Netlify -->
                 <input type="hidden" name="_subject" value="Novo contato do site">
@@ -23,39 +23,66 @@
                 <!-- Campos do formulário -->
                 <div class="input-group">
                     <label for="name">Nome Completo</label>
-                    <input type="text" id="name" name="name" required placeholder="Digite seu nome completo">
+                    <input type="text" id="name" name="name" required 
+                           placeholder="Ex: João da Silva"
+                           autocomplete="name"
+                           minlength="3">
                 </div>
 
                 <div class="input-group">
                     <label for="whatsapp">WhatsApp</label>
                     <input type="tel" id="whatsapp" name="whatsapp" required 
-                           placeholder="(XX) XXXXX-XXXX" 
-                           pattern="\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}">
+                           placeholder="(XX) 91234-5678"
+                           pattern="\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}"
+                           title="Formato: (DDD) 9xxxx-xxxx"
+                           autocomplete="tel">
                 </div>
 
                 <div class="input-group">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
+                    <input type="email" id="email" name="email" required 
+                           placeholder="exemplo@email.com"
+                           autocomplete="email">
                 </div>
 
                 <div class="input-group">
                     <label for="interest">Serviço de Interesse</label>
                     <select id="interest" name="interest" required>
                         <option value="" disabled selected>Selecione uma opção</option>
-                        <option value="Agendar mentoria">Agendar mentoria</option>
-                        <option value="Atendimento terapêutico">Atendimento terapêutico</option>
-                        <option value="Aconselhamento com tarô">Aconselhamento com tarô</option>
-                        <option value="Curso de tarô">Informações sobre curso de tarô</option>
-                        <option value="Outros">Outros assuntos</option>
+                        
+                        <optgroup label="Serviços Pessoais">
+                            <option value="mentoria">Informação/Agendamento de Mentoria (Design de Estratégia Pessoal)</option>
+                            <option value="atendimento-terapeutico">Informação/Agendamento de Atendimento Terapêutico</option>
+                            <option value="aconselhamento-taro">Informação/Agendamento de Aconselhamento com Tarô</option>
+                        </optgroup>
+                        
+                        <optgroup label="Serviços Corporativos">
+                            <option value="projetos-corporativos">Informação de Projetos Corporativos (Desing de Estratégia Corporativa)</option>
+                        </optgroup>
+                        
+                        <option value="outros">Outros assuntos</option>
                     </select>
+                </div>
+
+                <!-- Campo condicional para Outros -->
+                <div class="input-group" id="outros-container" style="display: none;">
+                    <label for="outros-detalhes">Detalhe seu assunto:</label>
+                    <input type="text" id="outros-detalhes" name="outros-detalhes"
+                           placeholder="Descreva aqui sua necessidade específica">
                 </div>
 
                 <div class="input-group">
                     <label for="message">Mensagem</label>
-                    <textarea id="message" name="message" required placeholder="Escreva sua mensagem aqui..."></textarea>
+                    <textarea id="message" name="message" required 
+                              placeholder="Como podemos ajudar? Escreva aqui..."
+                              minlength="10"
+                              maxlength="1000"></textarea>
                 </div>
 
-                <button type="submit" class="submit-btn">Enviar Mensagem</button>
+                <button type="submit" class="submit-btn">
+                    <span class="btn-text">Enviar Mensagem</span>
+                    <span class="btn-loading" aria-hidden="true"></span>
+                </button>
             </form>
         </div>
     </div>
