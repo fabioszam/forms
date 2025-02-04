@@ -10,12 +10,14 @@
     /* Cores */
     --color-primary: #007BFF;
     --color-primary-hover: #0056b3;
+    --color-error: #dc3545;
     --color-text: #333;
     --color-text-light: #666;
     --color-background: #fff;
     --color-input-background: #f8f9fa;
     --color-border: #dee2e6;
     --color-form-background: #ffffff;
+    --color-placeholder: #adb5bd;
     
     /* Espaçamentos */
     --space-sm: 0.5rem;
@@ -62,7 +64,7 @@ body {
 }
 
 /* Componentes */
-h2 {
+.form-title {
     text-align: center;
     font-size: clamp(1.75rem, 5vw, 2rem);
     margin-bottom: var(--space-lg);
@@ -91,11 +93,18 @@ select {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     font-family: inherit;
-    font-size: 16px;
+    font-size: 1rem;
     background-color: var(--color-input-background);
-    -webkit-appearance: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+select {
     appearance: none;
-    transition: all 0.2s ease;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.2em;
+    padding-right: 2.5rem !important;
 }
 
 input:focus-visible,
@@ -111,6 +120,20 @@ textarea {
     min-height: 120px;
 }
 
+/* Validação */
+input:invalid,
+textarea:invalid,
+select:invalid {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+::placeholder {
+    color: var(--color-placeholder);
+    opacity: 1;
+}
+
+/* Botão de envio */
 .submit-btn {
     width: 100%;
     padding: 1rem;
@@ -122,11 +145,45 @@ textarea {
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .submit-btn:hover,
 .submit-btn:active {
     background-color: var(--color-primary-hover);
+}
+
+.btn-loading {
+    display: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading .btn-text {
+    visibility: hidden;
+}
+
+.loading .btn-loading {
+    display: block;
+    position: absolute;
+}
+
+/* WhatsApp */
+#whatsapp {
+    font-family: monospace;
+    letter-spacing: 0.05em;
 }
 
 /* Mobile */
